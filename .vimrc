@@ -481,12 +481,15 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " mirakui
 set number
 colorscheme desert
+nmap tc :tabe<LF>
+nmap te :tabe 
+nmap to :tabe 
+nmap tn :tabnext<LF>
+nmap tp :tabNext<LF>
+nmap td :tabclose<LF>
 
 " load ~/.vimrc.local
 if filereadable(expand('$HOME/.vimrc.local'))
   source ~/.vimrc.local
 endif
-
-
-
 
