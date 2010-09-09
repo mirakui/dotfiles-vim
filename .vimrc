@@ -13,7 +13,7 @@ set nobackup    " Don't keep a backup file
 set viminfo='500,<10000,s1000,\"500 " read/write a .viminfo file, don't store more than
 "set viminfo='50,<1000,s100,:0,n~/.vim/viminfo
 set history=1000 " keep 50 lines of command line history
-set ruler   " show the cursor position all the time
+"set ruler   " show the cursor position all the time
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 " These are files we are not likely to want to edit or read.
@@ -68,13 +68,14 @@ set listchars=tab:>-,trail:\
 " コメント行が連続するときはコメントに
 set formatoptions+=r
 "入力中のコマンドをステータスに表示する
-set showcmd
+"set showcmd
 "括弧入力時の対応する括弧を表示
 set showmatch
 "ステータスラインを常に表示
 set laststatus=2
 " ステータスラインの表示
-set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y%{fugitive#statusline()}\ %F%=%l,%c%V%8P
+"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y%{fugitive#statusline()}\ %F%=%l,%c%V%8P
+"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y
 " コマンドライン補間をシェルっぽく
 set wildmode=list:longest
 " バッファが編集中でもその他のファイルを開けるように
@@ -480,13 +481,33 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " mirakui
 set number
-colorscheme desert
-nmap tc :tabe<LF>
+set cursorline
+" set cursorcolumn
+colorscheme darkblue
+nmap tc :tabe<CR>
 nmap te :tabe 
 nmap to :tabe 
-nmap tn :tabnext<LF>
-nmap tp :tabNext<LF>
-nmap td :tabclose<LF>
+nmap tn :tabnext<CR>
+nmap tp :tabNext<CR>
+nmap td :tabclose<CR>
+
+function! RunSpec()
+  let file_path = expand("%:p")
+  let line_number = line(".")
+  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -d " . file_path . " -l " . line_number . " "
+  unlet line_number
+  unlet file_path
+endfunction
+nmap gws :call RunSpec()<CR>
+
+function! RunAllSpec()
+  let file_path = expand("%:p")
+  let line_number = line(".")
+  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -d " . file_path . " "
+  unlet line_number
+  unlet file_path
+endfunction
+nmap gwa :call RunAllSpec()<CR>
 
 " load ~/.vimrc.local
 if filereadable(expand('$HOME/.vimrc.local'))
