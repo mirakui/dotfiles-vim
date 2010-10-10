@@ -74,7 +74,7 @@ set showmatch
 "ステータスラインを常に表示
 set laststatus=2
 " ステータスラインの表示
-"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y%{fugitive#statusline()}\ %F%=%l,%c%V%8P
+set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y%{fugitive#statusline()}\ %F%=%l,%c%V%8P
 "set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y
 " コマンドライン補間をシェルっぽく
 set wildmode=list:longest
@@ -481,8 +481,9 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " mirakui
 set number
-set cursorline
+" set cursorline
 " set cursorcolumn
+set mouse=a
 colorscheme darkblue
 nmap tc :tabe<CR>
 nmap te :tabe 
@@ -494,7 +495,7 @@ nmap td :tabclose<CR>
 function! RunSpec()
   let file_path = expand("%:p")
   let line_number = line(".")
-  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -d " . file_path . " -l " . line_number . " "
+  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -X -d " . file_path . " -l " . line_number . " "
   unlet line_number
   unlet file_path
 endfunction
@@ -503,7 +504,7 @@ nmap gws :call RunSpec()<CR>
 function! RunAllSpec()
   let file_path = expand("%:p")
   let line_number = line(".")
-  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -d " . file_path . " "
+  execute  ":! " . "source $HOME/.rvm/scripts/rvm; bundle exec rspec -X -d " . file_path . " "
   unlet line_number
   unlet file_path
 endfunction
@@ -513,4 +514,3 @@ nmap gwa :call RunAllSpec()<CR>
 if filereadable(expand('$HOME/.vimrc.local'))
   source ~/.vimrc.local
 endif
-

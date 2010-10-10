@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/vim-quickrun.git"]
 	path = .vim/bundle/vim-quickrun.git
 	url = git://github.com/thinca/vim-quickrun.git
+[submodule ".vim/bundle/unite.vim"]
+	path = .vim/bundle/unite.vim
+	url = http://github.com/Shougo/unite.vim.git
