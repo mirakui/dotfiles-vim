@@ -480,6 +480,7 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup() 
 
 " mirakui
+" set clipboard=unnamed
 set number
 " set cursorline
 " set cursorcolumn
