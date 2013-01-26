@@ -296,7 +296,7 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 " VimFiler
-let g:vimfiler_edit_command = 'tabedit'
+let g:vimfiler_edit_action = 'tabopen'
 
 "================================================================================
 " local setting
