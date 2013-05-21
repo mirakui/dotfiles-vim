@@ -1,20 +1,7 @@
+" vim:set filetype=vim:
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-Bundle 'unite.vim'
-Bundle 'snipMate'
-Bundle 'Shougo/neocomplcache'
-
-Bundle 'rails.vim'
-Bundle 'fugitive.vim'
-Bundle 'Shougo/vimfiler'
 "================================================================================
 " ruler, statusline
 "================================================================================
@@ -23,8 +10,7 @@ set number
 "ステータスラインを常に表示
 set laststatus=2
 " ステータスラインの表示
-set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y%{fugitive#statusline()}\ %F%=%l,%c%V%8P
-"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y
+set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff}%{']'}%y
 
 if &term =~ "screen"
   " screen Buffer 切り替えで screen にファイル名を表示
@@ -34,7 +20,7 @@ endif
 " syntax and colors
 "================================================================================
 syntax enable
-colorscheme darkblue
+colorscheme desert
 
 " We know xterm-debian is a color terminal
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86" || &term =~ "xterm-256color"
@@ -77,6 +63,19 @@ highlight Search ctermbg=5 ctermfg=0
 " highlight 上書き
 autocmd VimEnter,WinEnter * highlight SpecialKey ctermbg=0
 autocmd VimEnter,WinEnter * highlight PmenuSel ctermbg=12
+
+" 不可視文字の可視化
+" http://vim-users.jp/2009/07/hack40/
+" http://d.hatena.ne.jp/piropiropiroshki/20100321/1269119181
+autocmd Colorscheme,VimEnter,WinEnter * highlight TrailingWhitespace ctermbg=red guibg=red
+autocmd Colorscheme,VimEnter,WinEnter * call matchadd('TrailingWhitespace', '\s\+$', -1)
+
+autocmd Colorscheme,VimEnter,WinEnter * highlight ZenkakuWhitespace term=underline ctermbg=DarkGreen gui=underline guibg=DarkGray
+autocmd Colorscheme,VimEnter,WinEnter * call matchadd('ZenkakuWhitespace', '　', -1)
+
+autocmd Colorscheme,VimEnter,WinEnter * highlight BlackStar term=underline ctermbg=DarkRed guibg=DarkRed
+autocmd Colorscheme,VimEnter,WinEnter * call matchadd('BlackStar', '★', -1)
+
 "================================================================================
 " tabstop and indents
 "================================================================================
@@ -93,7 +92,7 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set modelines=0
+set modelines=5
 
 set smartindent
 "================================================================================
@@ -117,7 +116,7 @@ nnoremap <silent> gh :let @/=''<CR>
 " 検索レジストリに入ってる文字で現在のファイルを検索し、quickfix で開く
 nnoremap <unique> g/ :exec ':vimgrep /' . getreg('/') . '/j %\|cwin'<CR>
 " G/ ではすべてのバッファ
-nnoremap <unique> G/ :silent exec ':cexpr "" \| :bufdo vimgrepadd /' . getreg('/') . '/j %'<CR>\|:silent cwin<CR>
+" nnoremap <unique> G/ :silent exec ':cexpr "" \| :bufdo vimgrepadd /' . getreg('/') . '/j %'<CR>\|:silent cwin<CR>
 
 " バッファから検索
 function! Bgrep(word)
@@ -154,10 +153,11 @@ elseif has('win32unix') " cygwin
 endif
 
 " Gスクロールが遅い件の対応
-set timeoutlen=200
+" set timeoutlen=400
 
 " C-CでESC
 inoremap <C-C> <ESC>
+
 "================================================================================
 " cursor moving
 "================================================================================
@@ -168,7 +168,7 @@ vnoremap j gj
 vnoremap k gk
 
 " カーソル移動時の全角半角の判定をうまいことやる
-set ambiwidth=double 
+set ambiwidth=double
 
 " 前回終了したカーソル行に移動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
@@ -185,28 +185,6 @@ set wildmode=list:longest
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
-" Bundle 'Shougo/neocomplcache'
-let g:neocomplcache_enable_at_startup = 1 
-let g:neocomplcache_enable_auto_select = 1 
-
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3 
-
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
-" <CR>: close popup and save indent.
-" inoremap <expr><CR>  neocomplcache#smart_close_popup() . (&indentexpr != '' " ? "\<C-f>\<CR>X\<BS>":"\<CR>")
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
 "================================================================================
 " buffers
 "================================================================================
@@ -219,27 +197,11 @@ set autoread
 " tabs
 "================================================================================
 nmap tc :tabe<CR>
-nmap te :tabe 
-nmap to :tabe 
+nmap te :tabe<Space>
+nmap to :tabe<Space>
 nmap tn :tabnext<CR>
 nmap tp :tabNext<CR>
 nmap td :tabclose<CR>
-
-"================================================================================
-" ruby
-"================================================================================
-" Bundle 'rails.vim'
-autocmd BufNewFile,BufRead app/**/*.rhtml set fenc=utf-8
-autocmd BufNewFile,BufRead app/**/*.erb set fenc=utf-8
-autocmd BufNewFile,BufRead app/**/*.haml set fenc=utf-8
-autocmd BufNewFile,BufRead app/**/*.rb set fenc=utf-8
-
-" rails.vim
-let g:rails_level=4
-let g:rails_statusline=1
-" ruby omin complete
-let g:rubycomplete_rails = 1
-
 
 "================================================================================
 " encoding
@@ -259,15 +221,9 @@ set viminfo='500,<10000,s1000,\"500 " read/write a .viminfo file, don't store mo
 set history=1000 " keep 50 lines of command line history
 
 "================================================================================
-" git, vcs
-"================================================================================
-" Bundle 'fugitive.vim'
-nnoremap <unique> gG :exec ':silent Ggrep ' . expand('<cword>')<CR>
-
-"================================================================================
 " quickfix
 "================================================================================
-" QuickFix のサイズ調整,自動で抜ける 
+" QuickFix のサイズ調整,自動で抜ける
 function! s:autoCloseQuickFix()
   let qllen = min([10, len(getqflist())])
   cclose
@@ -284,24 +240,20 @@ autocmd QuickFixCmdPost * :call s:autoCloseQuickFix()
 nnoremap <unique> ec :cclose<CR>
 
 "================================================================================
-" other plugins
+" other
 "================================================================================
-" unite.vim
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-nnoremap <silent> UU :<C-u>UniteWithCurrentDir buffer_tab file_mru<CR>
-nnoremap <silent> B :<C-u>Unite buffer file_mru<CR>
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-
-" VimFiler
-let g:vimfiler_edit_action = 'tabopen'
+" ファイルを開いたままファイル名を変更する
+" http://vim-users.jp/2009/05/hack17/
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 "================================================================================
 " local setting
 "================================================================================
-" load ~/.vimrc.local
+if filereadable(expand('$HOME/.vimrc.plugins'))
+  source ~/.vimrc.plugins
+endif
+
 if filereadable(expand('$HOME/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
