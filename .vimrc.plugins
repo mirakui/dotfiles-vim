@@ -25,6 +25,7 @@ NeoBundle 'vim-coffee-script'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'https://github.com/tyru/open-browser.vim.git'
 NeoBundle 'https://github.com/tyru/open-browser-github.vim.git'
+NeoBundle 'jnwhiteh/vim-golang'
 
 "================================================================================
 " fugitive.vim

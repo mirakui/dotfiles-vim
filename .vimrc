@@ -85,6 +85,7 @@ if has("autocmd")
   " これらのftではインデントを無効に
   " autocmd FileType php filetype indent off
   " autocmd FileType xhtml :set indentexpr=
+  autocmd FileType go :set noexpandtab
 endif
 
 " タブ幅の設定
