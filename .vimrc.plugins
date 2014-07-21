@@ -119,6 +119,10 @@ nnoremap <silent> <Space>n :NERDTreeFind<CR>
 NeoBundle 'Puppet-Syntax-Highlighting'
 au BufNewFile,BufRead *.pp set filetype=puppet
 
+"================================================================================
+" Slim
+"================================================================================
+au BufNewFile,BufRead *.slim set filetype=slim
 
 "================================================================================
 " NeoBundle footer
