@@ -22,7 +22,7 @@ NeoBundle 'vim-coffee-script'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'https://github.com/tyru/open-browser.vim.git'
 NeoBundle 'https://github.com/tyru/open-browser-github.vim.git'
-"NeoBundle 'https://github.com/vim-jp/vim-go-extra.git'
+NeoBundle 'https://github.com/vim-jp/vim-go-extra.git'
 
 "================================================================================
 " fugitive.vim
