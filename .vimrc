@@ -31,7 +31,7 @@ endif
 
 "タブ文字の表示
 set list
-set listchars=tab:>-,trail:\ 
+set listchars=tab:>-,trail:\
 
 "括弧入力時の対応する括弧を表示
 set showmatch
@@ -260,4 +260,3 @@ endif
 if filereadable(expand('$HOME/.vimrc.local'))
   source ~/.vimrc.local
 endif
-
