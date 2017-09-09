@@ -8,6 +8,5 @@ $ cd dotfiles-vim
 $ git submodule update -i
 $ cd .vim/bundle/vimproc; make; cd -
 $ ln -s `pwd`/{.vim,.vimrc,.vimrc.plugins} ~/
+$ vim -c ':NeoBundleInstall'
 ```
-
-And do `:NeoBundleInstall` in vim
